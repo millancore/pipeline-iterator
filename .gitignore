@@ -1,0 +1,5 @@
+.idea
+.phpunit.cache
+.php-cs-fixer.cache
+coverage
+vendor
