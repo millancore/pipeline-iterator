@@ -49,7 +49,7 @@ foreach ($iterator as $value) {
 }
 ```
 
-# Filters with arguments
+## Filters with arguments
 The first arguments MUST BE Iterator
 
 ```php
@@ -70,7 +70,10 @@ class RangeFilter extends FilterIterator
 }
 ```
 
-# License
+## Examples
+[Filter CSV File using Generator](https://github.com/millancore/pipeline-iterator/wiki/Filter-CSV-File-using-Generator)
+
+## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
