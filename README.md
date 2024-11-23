@@ -31,26 +31,48 @@ composer require millancore/pipeline-iterator
 ```php
 use Millancore\PipelineIterator\PipelineFilterIterator;
 
-$iterator = new ArrayIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+$arrayData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-$iterator = PipelineFilterIterator::create($iterator)
+/** 
+* Use with Iterator
+* $iterator = PipelineFilterIterator::create(new ArrayIterator($arrayData))
+*/
+
+// Use with Array directly
+$iterator = PipelineFilterIterator::createFromArray($arrayData)
     ->filter(EventFilter::class)
-    ->filter(CallbackFilterIterator::class, [fn($value) => $value > 3])
-    ->filter(RangeFilter::class, [5, 10])
-    ->getIterator();
+    ->filter(CallbackFilterIterator::class, fn($value) => $value > 3)
+    ->filter(RangeFilter::class, 5, 10);
 
 foreach ($iterator as $value) {
     echo $value; // Output: 6, 8, 10
 }
 ```
 
-You can also use the `fromArray` method to create a new iterator from an array:
+# Filters with arguments
+The first arguments MUST BE Iterator
 
-```bash
-$iterator = PipelineFilterIterator::fromArray([1, 2, 3])
-    ->filter(EventFilter::class)
-    ...
+```php
+class RangeFilter extends FilterIterator
+{
+    public function __construct(
+        Iterator             $iterator,
+        private readonly int $start,
+        private readonly int $end
+    ) {
+        parent::__construct($iterator);
+    }
+
+    public function accept(): bool
+    {
+        return $this->current() >= $this->start && $this->current() <= $this->end;
+    }
+}
 ```
+
+# License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 
 

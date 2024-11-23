@@ -27,8 +27,7 @@ class PipelineIteratorFilterTest extends TestCase
 
         $result = PipelineFilterIterator::create($iterator)
             ->filter(EvenFilter::class)
-            ->filter(RangeFilter::class, [1,5])
-            ->getIterator();
+            ->filter(RangeFilter::class, 1,5);
 
         $this->assertEquals([2,4], array_values(
             iterator_to_array($result)
@@ -40,8 +39,7 @@ class PipelineIteratorFilterTest extends TestCase
         $iterator = new ArrayIterator([1,2,3,4,5,6,7,8,9,10]);
 
         $result = PipelineFilterIterator::create($iterator)
-            ->filter(CallbackFilterIterator::class, [fn($value) => $value % 2 == 0])
-            ->getIterator();
+            ->filter(CallbackFilterIterator::class, fn($value) => $value % 2 == 0);
 
         $this->assertEquals([2,4,6,8,10], array_values(
             iterator_to_array($result)
@@ -61,8 +59,7 @@ class PipelineIteratorFilterTest extends TestCase
         $iterator = new ArrayIterator($names);
 
         $result = PipelineFilterIterator::create($iterator)
-            ->filter(RegexIterator::class, ['/^J/'])
-            ->getIterator();
+            ->filter(RegexIterator::class, '/^J/');
 
         $this->assertEquals(['Juan'], array_values(
             iterator_to_array($result)

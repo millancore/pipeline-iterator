@@ -42,7 +42,7 @@ class PipelineFilterIterator implements IteratorAggregate
      * @param array<mixed> $args
      * @return PipelineFilterIterator
      */
-    public function filter(string $filter, array $args = []): self
+    public function filter(string $filter, ...$args): self
     {
 
         if (!is_subclass_of($filter, FilterIterator::class)) {
