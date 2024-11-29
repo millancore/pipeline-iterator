@@ -11,7 +11,7 @@ You can use SPL filters like
 [FilterIterator](https://www.php.net/manual/en/class.filteriterator.php) in simple way.
 
 ```php
-class EventFilter extends FilterIterator
+class EvenFilter extends FilterIterator
 {
     public function accept(): bool
     {
@@ -40,7 +40,7 @@ $arrayData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // Use with Array directly
 $iterator = PipelineFilterIterator::createFromArray($arrayData)
-    ->filter(EventFilter::class)
+    ->filter(EvenFilter::class)
     ->filter(CallbackFilterIterator::class, fn($value) => $value > 3)
     ->filter(RangeFilter::class, 5, 10);
 
